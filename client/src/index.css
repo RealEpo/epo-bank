@@ -205,3 +205,42 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* Mobile Responsive Utilities */
+@media (max-width: 768px) {
+  .balance-display {
+    font-size: 2.5rem !important;
+  }
+  
+  .navbar {
+    padding: 16px !important;
+  }
+  
+  .card {
+    padding: 16px !important;
+  }
+}
+
+/* Touch-friendly inputs */
+@media (pointer: coarse) {
+  .input-field {
+    min-height: 48px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  button {
+    min-height: 48px;
+  }
+}
+
+/* Safe area for notched phones */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  .navbar {
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+}
