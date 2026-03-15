@@ -18,10 +18,10 @@ const io = new Server(server, {
 // Middleware
 app.use(cors({
   origin: [
+    'https://epo-bank.vercel.app',
     'https://epo-bank-50bgaq91j-codingonly527-gmailcoms-projects.vercel.app',
     'http://localhost:5173',
-    'http://localhost:3000',
-    '*'  // Allow all origins (for testing - remove later for security)
+    'http://localhost:3000'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
