@@ -15,6 +15,9 @@ function Admin() {
   const [freezeAction, setFreezeAction] = useState('true');
   const navigate = useNavigate();
 
+  // ✅ API URL - Uses Vercel environment variable in production
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const token = localStorage.getItem('token');
   const storedUser = JSON.parse(localStorage.getItem('user'));
 
@@ -30,7 +33,7 @@ function Admin() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/users', {
+      const response = await axios.get(`${API_URL}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(response.data.users);
@@ -41,7 +44,7 @@ function Admin() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/transactions', {
+      const response = await axios.get(`${API_URL}/api/admin/transactions`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTransactions(response.data.transactions);
@@ -52,7 +55,7 @@ function Admin() {
 
   const fetchLogs = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/logs', {
+      const response = await axios.get(`${API_URL}/api/admin/logs`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setLogs(response.data.logs);
@@ -68,7 +71,7 @@ function Admin() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/admin/adjust-balance',
+        `${API_URL}/api/admin/adjust-balance`,
         {
           userId: parseInt(adjustUserId),
           amount: parseFloat(adjustAmount),
@@ -96,7 +99,7 @@ function Admin() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/admin/freeze',
+        `${API_URL}/api/admin/freeze`,
         {
           userId: parseInt(freezeUserId),
           freeze: freezeAction === 'true'
@@ -120,7 +123,7 @@ function Admin() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/admin/chaos/rob',
+        `${API_URL}/api/admin/chaos/rob`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` }
@@ -141,7 +144,7 @@ function Admin() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/admin/stimulus',
+        `${API_URL}/api/admin/stimulus`,
         { amount: 100 },
         {
           headers: { Authorization: `Bearer ${token}` }
