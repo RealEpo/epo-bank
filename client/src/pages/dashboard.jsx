@@ -13,6 +13,9 @@ function Dashboard() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // ✅ API URL - Uses Vercel environment variable in production
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   // Get token from localStorage
   const token = localStorage.getItem('token');
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -20,7 +23,7 @@ function Dashboard() {
   // ✅ ALL FUNCTIONS MOVED ABOVE useEffect
   const fetchBalance = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/bank/balance', {
+      const response = await axios.get(`${API_URL}/api/bank/balance`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setBalance(response.data.balance);
@@ -31,7 +34,7 @@ function Dashboard() {
 
   const fetchTransactions = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/bank/history', {
+      const response = await axios.get(`${API_URL}/api/bank/history`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTransactions(response.data.transactions);
@@ -42,7 +45,7 @@ function Dashboard() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/bank/users', {
+      const response = await axios.get(`${API_URL}/api/bank/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUsers(response.data.users);
@@ -58,7 +61,7 @@ function Dashboard() {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/bank/transfer',
+        `${API_URL}/api/bank/transfer`,
         {
           receiverUsername: transferTo,
           amount: parseFloat(transferAmount)
